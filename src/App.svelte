@@ -9,7 +9,7 @@
   function addSparticles(node) {
 
     sparticles = new Sparticles(node, {
-      count: 2000
+      count: document.body.clientWidth < 600 ? 500 : 1000
     });
 
     addStats();
@@ -37,7 +37,7 @@
   <section class="overlay">
     <h1>Sparticles</h1>
     <p>
-      <a href="https://github.com/simeydotme/sparticles">
+      <a href="https://github.com/simeydotme/sparticles" target="_blank">
         Documentation on Github<span class="octo">
           {@html octocat}
         </span>
@@ -58,9 +58,11 @@
     text-align: right;
     position: fixed;
     bottom: 10px;
-    right: 10px;
+    right: 15px;
     padding: 20px;
+    padding-left: 50px;
     border-radius: 10px;
+    box-shadow: 0 0 20px 10px rgba(27, 31, 36, 1);
     z-index: 1;
     background: rgba(27, 31, 36, 0.85);
   }
