@@ -9,7 +9,7 @@
   function addSparticles(node) {
 
     sparticles = new Sparticles(node, {
-      count: document.body.clientWidth < 600 ? 500 : 1000
+      count: document.body.clientWidth < 600 ? 100 : 1000
     });
 
     addStats();
