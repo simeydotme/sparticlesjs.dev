@@ -4,5 +4,7 @@
   "semi": true,
   "singleQuote": false,
   "tabWidth": 2,
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+
+  "svelteSortOrder" : "scripts-markup-styles"
 }

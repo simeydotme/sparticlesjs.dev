@@ -1,5 +1,4 @@
 <script>
-
   import octocat from "../public/github.svg";
   import Sparticles from "sparticles";
   import Stats from "stats.js";
@@ -7,17 +6,14 @@
   let fps, sparticles;
 
   function addSparticles(node) {
-
     sparticles = new Sparticles(node, {
-      count: document.body.clientWidth < 600 ? 100 : 1000
+      count: document.body.clientWidth < 600 ? 100 : 1000,
     });
 
     addStats();
-
   }
 
   function addStats() {
-    
     fps = new Stats();
     fps.dom.classList.add("stats");
     document.body.appendChild(fps.dom);
@@ -27,18 +23,20 @@
       requestAnimationFrame(statsDisplay);
     }
     requestAnimationFrame(statsDisplay);
-
   }
 
-
+  function track() {
+    gtag("event", "github");
+  }
 </script>
 
 <main use:addSparticles>
   <section class="overlay">
     <h1>Sparticles</h1>
     <p>
-      <a href="https://github.com/simeydotme/sparticles" target="_blank">
-        Documentation on Github<span class="octo">
+      <a href="https://github.com/simeydotme/sparticles" target="_blank" on:click={track}>
+        Documentation on Github
+        <span class="octo">
           {@html octocat}
         </span>
       </a>
@@ -47,7 +45,6 @@
 </main>
 
 <style>
-
   main {
     width: 100%;
     height: 100%;
@@ -73,12 +70,15 @@
     line-height: 1.2;
   }
 
-  p, .octo, a {
+  p,
+  .octo,
+  a {
     vertical-align: bottom;
     margin: 0;
   }
 
-  a, .octo {
+  a,
+  .octo {
     display: inline-block;
   }
 
@@ -90,12 +90,11 @@
   }
 
   :global(.stats) {
-    left: 10px!important;
-    top: 10px!important;
+    left: 10px !important;
+    top: 10px !important;
     padding: 5px;
     border-radius: 5px;
     background: #100;
     filter: saturate(0);
   }
-
 </style>
