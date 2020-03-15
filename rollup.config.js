@@ -1,11 +1,15 @@
 import svelte from "rollup-plugin-svelte";
 import svg from "rollup-plugin-svg";
+import babel from "rollup-plugin-babel";
+import filesize from "rollup-plugin-filesize";
 import resolve from "@rollup/plugin-node-resolve";
+import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 
-const production = !process.env.ROLLUP_WATCH;
+const dev = process.env.ROLLUP_WATCH;
+const prod = !dev;
 
 export default {
   input: "src/main.js",
@@ -14,12 +18,18 @@ export default {
     format: "iife",
     name: "app",
     file: "public/build/bundle.js",
+    plugins: [filesize()],
   },
   plugins: [
+    json(),
     svg(),
+    prod && babel({
+      babelrc: false,
+      exclude: "node_modules/**",
+    }),
     svelte({
       // enable run-time checks when not in production
-      dev: !production,
+      dev: dev,
       // we'll extract any component CSS out into
       // a separate file - better for performance
       css: css => {
@@ -40,15 +50,15 @@ export default {
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
-    !production && serve(),
+    dev && serve(),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
-    !production && livereload("public"),
+    dev && livereload("public"),
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
-    production && terser(),
+    prod && terser(),
   ],
   watch: {
     clearScreen: false,

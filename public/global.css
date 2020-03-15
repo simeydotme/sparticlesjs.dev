@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
 	position: relative;
 	width: 100%;
@@ -41,37 +45,156 @@ label {
 input, button, select, textarea {
 	font-family: inherit;
 	font-size: inherit;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+	padding: 0.2em 0.4em;
+	margin: 0;
+	border: 1px solid #111;
+  border-radius: 3px;
+  display: inline-block;
+  background: #444;
+  color: white;
+}
+
+select {
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("./img/select-arrow.svg");
+  background-size: 0.8em;
+  background-position: right 0.5em top 50%;
+  background-repeat: no-repeat;
+  padding-right: 1.5em;
 }
 
 input:disabled {
 	color: #ccc;
 }
 
+input:focus {
+  color: rgb(122, 255, 211);
+}
+
 input[type="range"] {
 	height: 0;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; 
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
 button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+  color: rgb(255, 255, 255);
+	background-color: #555;
+	padding: 0.2em 0.6em;
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  cursor: pointer;
 }
 
 button:disabled {
 	color: #999;
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
+button:not(:disabled):active,
+button:not(:disabled):hover {
+  background-color: #ddd;
+  color: #333;
 }
 
 button:focus {
 	border-color: #666;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  background: rgba(247, 90, 0, 0);
+  border: none;
+  position: relative;
+  margin: 0;
+  display: block;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-moz-range-thumb {
+  box-shadow: none;
+  border: none;
+  height: 1.6em;
+  width: 1em;
+  border-radius: 2px;
+  background: #ccc;
+  cursor: pointer;
+  opacity: 0;
+}
+
+input[type=range]:focus::-moz-range-thumb {
+  background: rgb(122, 255, 211);
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: none;
+  border: none;
+  height: 1.6em;
+  width: 0.7em;
+  border-radius: 2px;
+  background: #ccc;
+  cursor: pointer;
+  opacity: 0;
+}
+
+input[type=range]:focus::-webkit-slider-thumb {
+  background: rgb(122, 255, 211);
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: none;
+  border: none;
+  height: 1.6em;
+  width: 0.7em;
+  border-radius: 2px;
+  background: #ccc;
+  cursor: pointer;
+  opacity: 0;
+}
+
+input[type=range]:focus::-ms-thumb {
+  background: rgb(122, 255, 211);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-track {
+  opacity: 0;
+}
+
+input[type=range]::-ms-track {
+  opacity: 0;
+}
+
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 1.6em;
+  height: 1.6em;
+  margin: 0;
+  position: relative;
+  border-radius: 5px;
 }
 
 svg {

@@ -1,20 +1,61 @@
 <script>
-  import octocat from "../public/github.svg";
+  import { onMount } from "svelte";
   import Sparticles from "sparticles";
   import Stats from "stats.js";
 
-  let fps, sparticles;
+  import octocat from "../public/img/github.svg";
+  import { options } from "./options.js";
+  import { presets } from "./presets.js";
+  import { backgrounds } from "./backgrounds.js";
+  import Controls from "./Controls.svelte";
 
-  function addSparticles(node) {
-    sparticles = new Sparticles(node, {
-      count: document.body.clientWidth < 600 ? 100 : 1000,
-    });
+  let jsonVisible = false;
 
-    addStats();
+  const isMobile = (/Mobi|Android/i.test(navigator.userAgent));
+  let sparticles;
+  let node;
+  let debounce;
+  let selectedPreset = "default";
+  let ui = $backgrounds[ selectedPreset ];
+  $: jsonOut = "";
+
+  function track() {
+    gtag("event", "github");
+  };
+
+  $: {
+    addSparticles( node, $options );
+  };
+
+  function setNode( el ) {
+    node = el;
+  };
+
+  function addSparticles( el, opts ) {
+    if ( debounce ) {
+      clearTimeout(debounce);
+    }
+    debounce = setTimeout( function() {
+      updateJson();
+      if ( el ) {
+        if( sparticles && sparticles instanceof Sparticles ) {
+          try {
+            sparticles.destroy();
+          } catch(e) {
+            el.removeChild( sparticles.canvas );
+          }
+        }
+        if ( isMobile ) {
+          sparticles = new Sparticles( el, { count: 150 });
+        } else {
+          sparticles = new Sparticles( el, opts );
+        }
+      }
+    }, 250 );
   }
 
   function addStats() {
-    fps = new Stats();
+    let fps = new Stats();
     fps.dom.classList.add("stats");
     document.body.appendChild(fps.dom);
     function statsDisplay() {
@@ -25,23 +66,46 @@
     requestAnimationFrame(statsDisplay);
   }
 
-  function track() {
-    gtag("event", "github");
+  function updateJson() {
+    jsonOut = JSON.stringify($options)
+      .trim()
+      .replace(/,/g,",\n\t")
+      .replace( "{", "{\n\t" )
+      .replace( "}", "\n}" );
+  };
+
+  function exportJson() {
+    updateJson();
+    jsonVisible = true;
+  };
+
+  function setPreset( preset ) {
+    selectedPreset = preset.detail;
+    ui = $backgrounds[ selectedPreset ];
   }
+
+  onMount(() => {
+    sparticles 
+  });
+
 </script>
 
-<main use:addSparticles>
+<main use:setNode use:addStats>
   <section class="overlay">
     <h1>Sparticles</h1>
     <p>
       <a href="https://github.com/simeydotme/sparticles" target="_blank" on:click={track}>
-        Documentation on Github
-        <span class="octo">
-          {@html octocat}
-        </span>
+        Documentation on Github<span class="octo">{@html octocat}</span>
       </a>
     </p>
   </section>
+  <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
+  <div class="background" style="background-image: url({ui.image});">
+  </div>
+  <span class="credit">{@html ui.credit}</span>
+  <div class="exportsettings" on:click={() => { jsonVisible = false }} class:jsonVisible>
+    <textarea spellcheck="false" readonly>{jsonOut}</textarea>
+  </div>
 </main>
 
 <style>
@@ -64,6 +128,34 @@
     background: rgba(27, 31, 36, 0.85);
   }
 
+  .exportsettings {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .exportsettings textarea {
+    width: 500px;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+    border-radius: 10px;
+    color: aquamarine;
+    font-family: "Fira Code", Consolas, Monaco, monospace;
+    font-size: 14px;
+  }
+
+  .jsonVisible {
+    display: flex;
+  }
+
   h1 {
     font-size: 2.5rem;
     margin: 0;
@@ -84,8 +176,8 @@
 
   .octo {
     fill: inherit;
-    max-width: 20px;
-    max-height: 20px;
+    width: 20px;
+    height: 20px;
     margin-left: 10px;
   }
 
@@ -96,5 +188,40 @@
     border-radius: 5px;
     background: #100;
     filter: saturate(0);
+  }
+
+  :global(.save-row) {
+    padding: 10px 5px!important;
+    background: transparent!important;
+  }
+
+  :global(.dg .button) {
+    color: black!important;
+    font-size: 14px!important;
+    padding: 6px 6px 8px!important;
+    text-shadow: none!important;
+  }
+
+  :global(.button.gears,.button.save,.button.save-as,.button.revert) {
+    display: none!important;
+  }
+
+  .background {
+    position: fixed;
+    z-index: -2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .credit {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 12px;
+    z-index: 12;
   }
 </style>

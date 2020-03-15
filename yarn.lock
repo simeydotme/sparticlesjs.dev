@@ -733,6 +733,13 @@
     magic-string "^0.25.2"
     resolve "^1.11.0"
 
+"@rollup/plugin-json@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-json/-/plugin-json-4.0.2.tgz#482185ee36ac7dd21c346e2dbcc22ffed0c6f2d6"
+  integrity sha512-t4zJMc98BdH42mBuzjhQA7dKh0t4vMJlUka6Fz0c+iO5IVnWaEMiYBy1uBj9ruHZzXBW23IPDGL9oCzBkQ9Udg==
+  dependencies:
+    "@rollup/pluginutils" "^3.0.4"
+
 "@rollup/plugin-node-resolve@^7.0.0":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.1.tgz#8c6e59c4b28baf9d223028d0e450e06a485bb2b7"
@@ -744,7 +751,7 @@
     is-module "^1.0.0"
     resolve "^1.14.2"
 
-"@rollup/pluginutils@^3.0.0", "@rollup/pluginutils@^3.0.6":
+"@rollup/pluginutils@^3.0.0", "@rollup/pluginutils@^3.0.4", "@rollup/pluginutils@^3.0.6":
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.8.tgz#4e94d128d94b90699e517ef045422960d18c8fde"
   integrity sha512-rYGeAc4sxcZ+kPG/Tw4/fwJODC3IXHYDH4qusdN/b6aLw5LPUbzpecYbEJh4sVQGPFJxd2dBU4kc1H3oy9/bnw==
@@ -2451,13 +2458,6 @@ rollup-plugin-serve@^1.0.1:
     mime ">=2.0.3"
     opener "1"
 
-rollup-plugin-svelte-svg@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-svelte-svg/-/rollup-plugin-svelte-svg-0.2.1.tgz#1dbfaf30969b3b38b270161f84d27e63ef4f8605"
-  integrity sha512-Ab7MHgsWlP+95BGNANaMsVGcnsHey0PM3G2zcU9AX2dAu2JUZh+lK50dB63W0EKvZhgqyVNi1UlHyOiKG+DDkg==
-  dependencies:
-    rollup-pluginutils "^1.3.1"
-
 rollup-plugin-svelte@^5.0.3:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/rollup-plugin-svelte/-/rollup-plugin-svelte-5.1.1.tgz#0094f94e7e6ff7579bcd9f7769b454751ba670e1"
@@ -2692,10 +2692,10 @@ sourcemap-codec@^1.4.4:
   resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
   integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
 
-sparticles@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/sparticles/-/sparticles-0.13.0.tgz#5da68cbfebe170f180d7e2c8262e93865cb5891c"
-  integrity sha512-vvQ16CRMD23boB8NWouRDOSuJ9CAiDllwzZYldCfqSlRXyRlsXPpqWQXdoVGRtxhUi3xCgXcrxTMWjiNEhh60A==
+sparticles@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/sparticles/-/sparticles-0.14.0.tgz#2ec333144a14344d36854047191d99e3c5c28c98"
+  integrity sha512-5kv0GzNsOuPo6hMBAHaWGvMpCp4s74934eqZtpYJprSn8BzZe+Gz3yoRLEiIpZP7tmaPeMAaO7oRbE5Y/nsz7w==
 
 spdx-correct@^3.0.0:
   version "3.1.0"
