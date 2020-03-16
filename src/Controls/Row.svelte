@@ -29,9 +29,9 @@
     <String {option} {...props} />
   {:else if type === "boolean"}
     <Boolean {option} {...props} />
-  {:else}
-    <slot />
   {/if}
+  
+  <slot />
 
 </label>
 

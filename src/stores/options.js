@@ -21,7 +21,7 @@ export const options = writable({
   drift: 1,
   glow: 0,
   twinkle: false,
-  color: ["white", "red"],
+  color: ["random"],
   shape: "circle",
   imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
 });

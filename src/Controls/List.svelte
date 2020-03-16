@@ -1,6 +1,6 @@
 <script>
 
-  import { options } from "../options.js";
+  import { options } from "../stores/options.js";
 
   export let option;
   export let values = [];

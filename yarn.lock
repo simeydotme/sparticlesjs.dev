@@ -2692,10 +2692,10 @@ sourcemap-codec@^1.4.4:
   resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
   integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
 
-sparticles@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/sparticles/-/sparticles-0.14.0.tgz#2ec333144a14344d36854047191d99e3c5c28c98"
-  integrity sha512-5kv0GzNsOuPo6hMBAHaWGvMpCp4s74934eqZtpYJprSn8BzZe+Gz3yoRLEiIpZP7tmaPeMAaO7oRbE5Y/nsz7w==
+sparticles@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sparticles/-/sparticles-1.0.3.tgz#038a29bf57b635800bdcd15caccf2105729cb9b3"
+  integrity sha512-a5mek9HxbEkwV+yAXDp56ixEhi2gaAbq0l4bs02r2VMo+TbvLbHzFRNar4L0a8eqPdvC8j/e2nqRqrZX11GuhA==
 
 spdx-correct@^3.0.0:
   version "3.1.0"
@@ -2819,9 +2819,9 @@ supports-color@^7.1.0:
     has-flag "^4.0.0"
 
 svelte@^3.0.0:
-  version "3.19.2"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.19.2.tgz#4b0169ee33b37399f08eb92163593a0a46c242c7"
-  integrity sha512-Jswg065u8R9QYcN0rdpTQSFIr0hFq7YUzcPpEY6ZpFSAWkJKZG9AJvHE1d8+NJDTfr7SzKrO6EYssYYkUmszpA==
+  version "3.20.1"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.20.1.tgz#8417fcd883a2f534b642a0737368272e651cf3ac"
+  integrity sha512-m/dw52BZf+p6KYnyKLErIcGalu4pwJrQbUM7VZriRw6ZlJj1qMAZsLcIWzEB3I0hhdJwkKb7LrrvUIeqmbO92Q==
 
 term-size@^2.1.0:
   version "2.2.0"

@@ -4,9 +4,9 @@
   import Stats from "stats.js";
 
   import octocat from "../public/img/github.svg";
-  import { options } from "./options.js";
-  import { presets } from "./presets.js";
-  import { backgrounds } from "./backgrounds.js";
+  import { options } from "./stores/options.js";
+  import { presets } from "./stores/presets.js";
+  import { backgrounds } from "./stores/backgrounds.js";
   import Controls from "./Controls.svelte";
 
   let jsonVisible = false;
@@ -48,7 +48,7 @@
         if ( isMobile ) {
           sparticles = new Sparticles( el, { count: 150 });
         } else {
-          sparticles = new Sparticles( el, opts );
+          sparticles = new Sparticles( el, JSON.parse(JSON.stringify(opts)));
         }
       }
     }, 250 );
@@ -102,7 +102,10 @@
   <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
   <div class="background" style="background-image: url({ui.image});">
   </div>
-  <span class="credit">{@html ui.credit}</span>
+  <span class="credit">
+    <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+      Photo by {ui.author}</a> on Unsplash
+  </span>
   <div class="exportsettings" on:click={() => { jsonVisible = false }} class:jsonVisible>
     <textarea spellcheck="false" readonly>{jsonOut}</textarea>
   </div>
@@ -117,15 +120,14 @@
 
   .overlay {
     text-align: right;
+    text-shadow: 1px 1px 1px black;
     position: fixed;
     bottom: 10px;
     right: 15px;
-    padding: 20px;
-    padding-left: 50px;
+    padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 20px 10px rgba(27, 31, 36, 1);
+    /* box-shadow: 0 0 20px 10px rgba(27, 31, 36, 1); */
     z-index: 1;
-    background: rgba(27, 31, 36, 0.85);
   }
 
   .exportsettings {

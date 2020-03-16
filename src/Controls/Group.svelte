@@ -1,26 +1,29 @@
 <script>
 
+  import { groups } from "../stores/groups";
   import { slide } from "svelte/transition";
   import chevron from "../../public/img/chevron.svg";
 
   export let name;
   export let visible;
-
+  $: isVisible = $groups[name] || visible;
+  
   function toggle() {
-    visible = !visible;
+    visible = isVisible = !isVisible;
+    $groups[name] = isVisible;
   }
 
 </script>
 
 
 <section class="group">
-  <div class="group-name" class:visible on:click={toggle}>
+  <div class="group-name" class:visible={isVisible} on:click={toggle}>
     <span class="arrow">
       {@html chevron}
     </span>
     {name}
   </div>
-  {#if visible}
+  {#if isVisible}
   <div class="group-content" transition:slide|local>
     <slot />
   </div>

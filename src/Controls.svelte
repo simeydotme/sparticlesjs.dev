@@ -3,9 +3,9 @@
 
   import { createEventDispatcher } from "svelte";
 
-  import { options } from "./options.js";
-  import { presets } from "./presets.js";
-  import { enums } from "./enums.js";
+  import { options } from "./stores/options.js";
+  import { presets } from "./stores/presets.js";
+  import { enums } from "./stores/enums.js";
 
   import Group from "./Controls/Group.svelte";
   import Row from "./Controls/Row.svelte";
@@ -24,8 +24,13 @@
 
   function addColor() {
     $options.color.push("#fff");
-    options.set( $options );
+    $options.color = $options.color;
   };
+
+  function removeColor( index ) {
+    $options.color.splice( index , 1 );
+    $options.color = $options.color;
+  }
 
 </script>
 
@@ -58,7 +63,7 @@
       <Row name="maxSize" type="number" props={{ min: 1, max: 100 }} />
     </Group>
 
-    <Group name="Visual">
+    <Group name="Visual" visible>
       <Row name="composition" type="list" props={{ values: $enums.composites }} />
       <Row name="glow" type="number" props={{ min: 0, max: 50 }} />
       <Group name="Animation">
@@ -83,12 +88,18 @@
           <Row name="alphaVariance" type="number" props={{ min: 0, max: 100 }} />
         </Group>
       </Group>
-      <Group name="Color">
+      <Group name="Color" visible>
         {#each $options.color as color,i}
-          <Row name="color" type="color" props={{ index: i }} />
+          <Row name="color" type="color" props={{ index: i }}>
+            <button class="remove-color" 
+              title="Remove this color"
+              on:click={() => { removeColor(i) }}>
+              x
+            </button>
+          </Row>
         {/each}
         <Row>
-          <button on:click={addColor}>
+          <button on:click={addColor} title="Add a new color">
             add color
           </button>
         </Row>
