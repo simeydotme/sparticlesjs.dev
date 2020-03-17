@@ -99,21 +99,25 @@
       </a>
     </p>
   </section>
-  <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
-    {#if ui.image}
-    <div class="background" style="background-image: url({ui.image});">
+
+  {#if !isMobile}
+    <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
+      {#if ui.image}
+      <div class="background" style="background-image: url({ui.image});">
+      </div>
+    {/if}
+    {#if ui.author}
+      <span class="credit" >
+        <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+          Photo by {ui.author}</a> on Unsplash
+      </span>
+    {/if}
+    <div class="exportsettings" class:jsonVisible>
+      <div class="exportoverlay" on:click={() => { jsonVisible = false }}></div>
+      <textarea spellcheck="false" readonly>{jsonOut}</textarea>
     </div>
   {/if}
-  {#if ui.author}
-    <span class="credit" >
-      <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-        Photo by {ui.author}</a> on Unsplash
-    </span>
-  {/if}
-  <div class="exportsettings" class:jsonVisible>
-    <div class="exportoverlay" on:click={() => { jsonVisible = false }}></div>
-    <textarea spellcheck="false" readonly>{jsonOut}</textarea>
-  </div>
+  
 </main>
 
 <style>
