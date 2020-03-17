@@ -43,13 +43,13 @@
   }
 
   .group-name {
-    color: #ddd;
-    fill: #ddd;
+    color: #bbb;
+    fill: #888;
     background: black;
     position: relative;
     user-select: none;
     padding: 5px 8px;
-    padding-left: 1.8em;
+    padding-left: 2.2em;
     transition: all 0.2s ease;
     border-top: 1px solid #222;
   }
@@ -57,7 +57,8 @@
 
   .arrow {
     position: absolute;
-    height: 1em;
+    height: 14px;
+    width: 14px;
     left: 5px;
     top: 50%;
     transform: translateY(-50%);
@@ -72,7 +73,7 @@
   .visible {
     color: rgb(210, 255, 240);
     fill: rgb(210, 255, 240);
-    padding-left: 2.2em;
+    padding-left: 2.8em;
   }
 
 </style>

@@ -39,7 +39,7 @@
 
   <section class="presets">
 
-    <button on:click={saveJson}>Save these Settings</button>
+    <button on:click={saveJson}>Save Settings</button>
 
     <select bind:value={selectedPreset} on:change={()=>{updateOptions()}}>
       {#each Object.keys($presets) as preset}

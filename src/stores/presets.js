@@ -1,7 +1,7 @@
 import { readable } from 'svelte/store';
 
 export const presets = readable({
-  default: {
+  "Vanilla": {
     composition: "source-over",
     count: 500,
     speed: 10,
@@ -26,7 +26,7 @@ export const presets = readable({
     shape: "circle",
     imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
   },
-  snow: {
+  "Alpine Flurry": {
     composition: "source-over",
     count: 160,
     speed: 5,
@@ -47,11 +47,11 @@ export const presets = readable({
     drift: 4,
     glow: 0,
     twinkle: false,
-    color: ["white", "#e2e2e2"],
+    color: ["white", "#cbe4ed"],
     shape: "circle",
     imageUrl: ""
   },
-  sparkles: {
+  "Enchanted Woods": {
     composition: "source-over",
     count: 200,
     speed: 0,
@@ -61,18 +61,18 @@ export const presets = readable({
     yVariance: 4,
     rotate: false,
     rotation: 0,
-    alphaSpeed: 4,
-    alphaVariance: 10,
+    alphaSpeed: 8,
+    alphaVariance: 4,
     minAlpha: -1,
     maxAlpha: 1,
-    minSize: 2,
-    maxSize: 10,
+    minSize: 4,
+    maxSize: 14,
     style: "fill",
     bounce: false,
     drift: 0,
-    glow: 0,
+    glow: 16,
     twinkle: true,
-    color: ["#f4bf5b", "#cad9df"],
+    color: ["#f4bf5b", "#cbe4ed"],
     shape: "diamond",
     imageUrl: ""
   }

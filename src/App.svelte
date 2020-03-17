@@ -15,7 +15,7 @@
   let sparticles;
   let node;
   let debounce;
-  let selectedPreset = "default";
+  let selectedPreset = "Vanilla";
   let ui = $backgrounds[ selectedPreset ];
   $: jsonOut = "";
 
@@ -100,13 +100,18 @@
     </p>
   </section>
   <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
-  <div class="background" style="background-image: url({ui.image});">
-  </div>
-  <span class="credit">
-    <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-      Photo by {ui.author}</a> on Unsplash
-  </span>
-  <div class="exportsettings" on:click={() => { jsonVisible = false }} class:jsonVisible>
+    {#if ui.image}
+    <div class="background" style="background-image: url({ui.image});">
+    </div>
+  {/if}
+  {#if ui.author}
+    <span class="credit" >
+      <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+        Photo by {ui.author}</a> on Unsplash
+    </span>
+  {/if}
+  <div class="exportsettings" class:jsonVisible>
+    <div class="exportoverlay" on:click={() => { jsonVisible = false }}></div>
     <textarea spellcheck="false" readonly>{jsonOut}</textarea>
   </div>
 </main>
@@ -143,15 +148,26 @@
     align-items: center;
   }
 
+  .exportoverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
   .exportsettings textarea {
-    width: 500px;
-    height: 400px;
+    width: 340px;
+    height: 580px;
+    padding: 15px;
     background: rgba(0, 0, 0, 0.8);
     border: none;
     border-radius: 10px;
     color: aquamarine;
     font-family: "Fira Code", Consolas, Monaco, monospace;
     font-size: 14px;
+    z-index: 2;
   }
 
   .jsonVisible {
