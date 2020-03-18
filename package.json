@@ -1,7 +1,7 @@
 {
   "name": "sparticlesjs.dev",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -31,7 +31,7 @@
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.1.2",
     "sirv-cli": "^0.4.4",
-    "sparticles": "^1.0.0",
+    "sparticles": "^1.1.0",
     "stats.js": "^0.17.0",
     "svelte": "^3.0.0"
   }

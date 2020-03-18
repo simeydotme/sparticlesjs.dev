@@ -17,6 +17,12 @@ export const backgrounds = readable({
     author: "Niilo Isotalo",
     url: "https://unsplash.com/photos/-BZc9Ee1qo0",
     image: "./img/bg/forest.jpg"
+  },
+
+  "Amber Fall": {
+    author: "Ju On",
+    url: "https://unsplash.com/photos/_zZrmWCGdsg",
+    image: "./img/bg/fall.jpg"
   }
 
 });

@@ -22,6 +22,6 @@ export const options = writable({
   glow: 0,
   twinkle: false,
   color: ["random"],
-  shape: "circle",
-  imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
+  shape: ["circle","image"],
+  imageUrl: "./img/snowflake.png"
 });

@@ -24,7 +24,7 @@ export const presets = readable({
     twinkle: false,
     color: ["random"],
     shape: "circle",
-    imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
+    imageUrl: "/public/img/snowflake.png"
   },
   "Alpine Flurry": {
     composition: "source-over",
@@ -75,5 +75,30 @@ export const presets = readable({
     color: ["#f4bf5b", "#cbe4ed"],
     shape: "diamond",
     imageUrl: ""
+  },
+  "Amber Fall": {
+    composition: "source-over",
+    count: 30,
+    speed: 0.25,
+    parallax: 2.5,
+    direction: 200,
+    xVariance: 50,
+    yVariance: 4,
+    rotate: true,
+    rotation: 0.2,
+    alphaSpeed: 0.5,
+    alphaVariance: 0,
+    minAlpha: 0.8,
+    maxAlpha: 1,
+    minSize: 12,
+    maxSize: 42,
+    style: "fill",
+    bounce: false,
+    drift: 5,
+    glow: 0,
+    twinkle: false,
+    color: ["#eb8065", "#fac5ad", "#52382e"],
+    shape: "image",
+    imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
   }
 });

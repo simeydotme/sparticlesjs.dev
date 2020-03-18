@@ -70,8 +70,8 @@
         <Group name="Motion">
           <Row name="bounce" type="boolean" />
           <Row name="direction" type="number" props={{ min: 0, max: 360, step: 10 }} />
-          <Row name="speed" type="number" props={{ min: 0, max: 100 }} />
-          <Row name="parallax" type="number" props={{ min: 0, max: 50 }} />
+          <Row name="speed" type="number" props={{ min: 0, max: 100, step: 0.05 }} />
+          <Row name="parallax" type="number" props={{ min: 0, max: 50, step: 0.1 }} />
           <Row name="drift" type="number" props={{ min: 0, max: 50, step: 0.1 }} />
           <Row name="xVariance" type="number" props={{ min: 0, max: 50, step: 0.1 }} />
           <Row name="yVariance" type="number" props={{ min: 0, max: 50, step: 0.1 }} />
