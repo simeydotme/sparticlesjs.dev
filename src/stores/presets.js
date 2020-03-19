@@ -28,10 +28,10 @@ export const presets = readable({
   },
   "Alpine Flurry": {
     composition: "source-over",
-    count: 160,
+    count: 210,
     speed: 5,
     parallax: 20,
-    direction: 210,
+    direction: 160,
     xVariance: 5,
     yVariance: 0,
     rotate: false,
