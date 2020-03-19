@@ -24,14 +24,14 @@ export const presets = readable({
     twinkle: false,
     color: ["random"],
     shape: "circle",
-    imageUrl: "/public/img/snowflake.png"
+    imageUrl: ""
   },
   "Alpine Flurry": {
     composition: "source-over",
     count: 160,
     speed: 5,
     parallax: 20,
-    direction: 160,
+    direction: 210,
     xVariance: 5,
     yVariance: 0,
     rotate: false,
@@ -47,9 +47,9 @@ export const presets = readable({
     drift: 4,
     glow: 0,
     twinkle: false,
-    color: ["white", "#cbe4ed"],
-    shape: "circle",
-    imageUrl: ""
+    color: ["white", "#d3e8eb"],
+    shape: ["circle","circle","circle","image"],
+    imageUrl: "./img/snowflake.png"
   },
   "Enchanted Woods": {
     composition: "source-over",
@@ -100,5 +100,30 @@ export const presets = readable({
     color: ["#eb8065", "#fac5ad", "#52382e"],
     shape: "image",
     imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
+  },
+  "Abyss": {
+    composition:"source-over",
+    count:799,
+    speed:13,
+    parallax:17.4,
+    direction:0,
+    xVariance:2.6,
+    yVariance:7.8,
+    rotate:true,
+    rotation:1,
+    alphaSpeed:21,
+    alphaVariance:0,
+    minAlpha:-2,
+    maxAlpha:2,
+    minSize:1,
+    maxSize:4,
+    style:"both",
+    bounce:false,
+    drift:5.9,
+    glow:0,
+    twinkle:false,
+    color:["#ffffff","#68e8f6", "#3bd4f5","#017a98","#017a98","#017a98"],
+    shape:"circle",
+    imageUrl: ""
   }
 });

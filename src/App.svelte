@@ -108,7 +108,7 @@
     {/if}
     {#if ui.author}
       <span class="credit" >
-        <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+        <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">
           Photo by {ui.author}</a> on Unsplash
       </span>
     {/if}

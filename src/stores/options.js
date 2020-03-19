@@ -22,6 +22,6 @@ export const options = writable({
   glow: 0,
   twinkle: false,
   color: ["random"],
-  shape: ["circle","image"],
-  imageUrl: "./img/snowflake.png"
+  shape: "circle",
+  imageUrl: ""
 });

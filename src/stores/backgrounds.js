@@ -23,6 +23,12 @@ export const backgrounds = readable({
     author: "Ju On",
     url: "https://unsplash.com/photos/_zZrmWCGdsg",
     image: "./img/bg/fall.jpg"
+  },
+
+  "Abyss": {
+    author: "Sarah Lee",
+    url: "https://unsplash.com/photos/QURU8IY-RaI",
+    image: "./img/bg/abyss.jpg"
   }
 
 });
