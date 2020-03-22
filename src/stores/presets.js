@@ -125,5 +125,30 @@ export const presets = readable({
     color:["#ffffff","#68e8f6", "#3bd4f5","#017a98","#017a98","#017a98"],
     shape:"circle",
     imageUrl: ""
+  },
+  "Galaxy": {
+    composition:"source-over",
+    count:150,
+    speed:0,
+    parallax:0,
+    direction:0,
+    xVariance:0.1,
+    yVariance:0.1,
+    rotate:false,
+    rotation:0,
+    alphaSpeed:14,
+    alphaVariance:4,
+    minAlpha:0.3,
+    maxAlpha:2,
+    minSize:1,
+    maxSize:10,
+    style:"fill",
+    bounce:false,
+    drift:0,
+    glow:0,
+    twinkle:false,
+    color:["#ddaaff","#89e4f8", "#64aaf0","#6c41bc"],
+    shape:["star","diamond"],
+    imageUrl: ""
   }
 });

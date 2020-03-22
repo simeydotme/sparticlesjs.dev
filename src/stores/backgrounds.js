@@ -29,6 +29,12 @@ export const backgrounds = readable({
     author: "Sarah Lee",
     url: "https://unsplash.com/photos/QURU8IY-RaI",
     image: "./img/bg/abyss.jpg"
+  },
+
+  "Galaxy": {
+    author: "Graham Holtshausen",
+    url: "https://unsplash.com/photos/fUnfEz3VLv4",
+    image: "./img/bg/galaxy.jpg"
   }
 
 });
