@@ -94,12 +94,12 @@ export const presets = readable({
     maxSize: 42,
     style: "fill",
     bounce: false,
-    drift: 5,
+    drift: 8,
     glow: 0,
     twinkle: false,
     color: ["#eb8065", "#fac5ad", "#52382e"],
     shape: "image",
-    imageUrl: "https://image.flaticon.com/icons/svg/692/692052.svg"
+    imageUrl: "./img/leaf.svg"
   },
   "Abyss": {
     composition:"source-over",
