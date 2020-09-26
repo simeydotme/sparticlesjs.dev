@@ -114,7 +114,10 @@
     {/if}
     <div class="exportsettings" class:jsonVisible>
       <div class="exportoverlay" on:click={() => { jsonVisible = false }}></div>
-      <textarea spellcheck="false" readonly>{jsonOut}</textarea>
+      <div class="exportcontent">
+        <h3>copy this json object for your sparticles options</h3>
+        <textarea spellcheck="false" readonly>{jsonOut}</textarea>
+      </div>
     </div>
   {/if}
   
@@ -147,7 +150,7 @@
     right: 0;
     bottom: 0;
     background: rgba(0,0,0,0.5);
-    z-index: 5;
+    z-index: 500;
     justify-content: center;
     align-items: center;
   }
@@ -161,17 +164,27 @@
     z-index: 1;
   }
 
-  .exportsettings textarea {
-    width: 340px;
-    height: 580px;
+  .exportcontent {
+    z-index: 2;
     padding: 15px;
     background: rgba(0, 0, 0, 0.8);
-    border: none;
     border-radius: 10px;
+  }
+
+  .exportcontent h3 {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .exportcontent textarea {
+    width: 75vw;
+    height: 60vh;
+    border: none;
+    background: transparent;
     color: aquamarine;
     font-family: "Fira Code", Consolas, Monaco, monospace;
     font-size: 14px;
-    z-index: 2;
   }
 
   .jsonVisible {
