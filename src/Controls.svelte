@@ -1,7 +1,7 @@
 
 <script>
 
-  import { createEventDispatcher } from "svelte";
+  import { onMount, afterUpdate, createEventDispatcher } from "svelte";
 
   import { options } from "./stores/options.js";
   import { presets } from "./stores/presets.js";
@@ -13,15 +13,33 @@
   import cross from "../public/img/x.svg";
 
   const dispatch = createEventDispatcher();
-  let selectedPreset = "default";
+  let selectedPreset = "Vanilla";
+  let debounce;
+  let resetPrompt = false;
 
-  function updateOptions() {
+  function updateOptions( p ) {
+    if ( p ) {
+      selectedPreset = p;
+    }
     options.set( $presets[ selectedPreset ]);
     dispatch( "setPreset", selectedPreset );
+    saveOptions();
   }
 
   function saveJson() {
     dispatch( "saveJson" );
+  }
+
+  function reset() {
+    if( !resetPrompt ) {
+      resetPrompt = true;
+      setTimeout( function() {
+        resetPrompt = false;
+      }, 2000 );
+    } else {
+      updateOptions( "Vanilla" );
+      resetPrompt = false;
+    }
   }
 
   function addColor() {
@@ -34,6 +52,33 @@
     $options.color = $options.color;
   }
 
+  function saveOptions() {
+    const json = JSON.stringify($options);
+    localStorage.setItem( "savedOptions", json );
+    localStorage.setItem( "savedPreset", selectedPreset );
+  }
+
+  afterUpdate(() => {
+    if ( debounce ) {
+      clearTimeout( debounce );
+    }
+    debounce = setTimeout( function() {
+      saveOptions();
+    }, 250 );
+	});
+
+  onMount(() => {
+    const savedOptions = localStorage.getItem( "savedOptions" );
+    const savedPreset = localStorage.getItem( "savedPreset" );
+    if( savedPreset ) {
+      selectedPreset = savedPreset;
+      dispatch( "setPreset", selectedPreset );
+    }
+    if( savedOptions ) {
+      options.set( JSON.parse( savedOptions ));
+    }
+  });
+
 </script>
 
 
@@ -41,9 +86,7 @@
 
   <section class="presets">
 
-    <button on:click={saveJson}>Save Settings</button>
-
-    <select bind:value={selectedPreset} on:change={()=>{updateOptions()}}>
+    <select class="presetList" bind:value={selectedPreset} on:change={()=>{updateOptions()}}>
       {#each Object.keys($presets) as preset}
         <option value={preset}>{preset}</option>
       {/each}
@@ -65,9 +108,6 @@
       <Row name="maxSize" type="number" props={{ min: 1, max: 100 }} />
     </Group>
 
-    <Group name="Visual" visible>
-      <Row name="composition" type="list" props={{ values: $enums.composites }} />
-      <Row name="glow" type="number" props={{ min: 0, max: 50 }} />
       <Group name="Animation">
         <Group name="Motion">
           <Row name="bounce" type="boolean" />
@@ -90,6 +130,13 @@
           <Row name="alphaVariance" type="number" props={{ min: 0, max: 100 }} />
         </Group>
       </Group>
+      <Group name="Rendering">
+        <Row name="glow" type="number" props={{ min: 0, max: 50 }} />
+        <Row name="composition" type="list" props={{ values: $enums.composites }} />
+        <div class="composition-help">
+          default: "source-over"
+        </div>
+      </Group>
       <Group name="Color" visible>
         {#each $options.color as color,i}
           <Row name="color" type="color" props={{ index: i }}>
@@ -108,9 +155,19 @@
           </button>
         </Row>
       </Group>
-    </Group>
 
   </Group>
+
+  <section class="operations">
+    <button on:click={saveJson}>Save Settings</button>
+    <button on:click={reset}>
+      {#if !resetPrompt}
+        Reset
+      {:else}
+        Confirm?
+      {/if}
+    </button>
+  </section>
 
 </section>
 
@@ -134,9 +191,15 @@
     transform: translate3d(0,0,0);
   }
 
-  .presets {
+  .presets, .operations {
     margin-bottom: 5px;
     display: flex;
+    justify-content: flex-end;
+  }
+
+  .operations {
+    margin-top: 15px;
+    margin-bottom: 0;
     justify-content: space-between;
   }
 
@@ -156,6 +219,31 @@
     height: 10px;
     display: inline-block;
     fill: #ddd;
+  }
+
+  .composition-help {
+    text-align: right;
+    padding: 5px;
+    background-color: #1a1a1a;
+  }
+
+  .presetList {
+    animation: expose 6s ease 1;
+  }
+
+  @keyframes expose {
+    55% {
+      background-color: #444;
+    }
+    60% {
+      background-color: #888;
+    }
+    70% {
+      background-color: #444;
+    }
+    77% {
+      background-color: #888;
+    }
   }
 
 </style>

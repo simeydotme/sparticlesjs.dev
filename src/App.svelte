@@ -33,7 +33,7 @@
 
   function addSparticles( el, opts ) {
     if ( debounce ) {
-      clearTimeout(debounce);
+      clearTimeout( debounce );
     }
     debounce = setTimeout( function() {
       updateJson();
@@ -84,10 +84,6 @@
     ui = $backgrounds[ selectedPreset ];
   }
 
-  onMount(() => {
-    sparticles 
-  });
-
 </script>
 
 <main use:setNode use:addStats>
@@ -102,7 +98,7 @@
 
   {#if !isMobile}
     <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
-      {#if ui.image}
+    {#if ui.image}
       <div class="background" style="background-image: url({ui.image});">
       </div>
     {/if}

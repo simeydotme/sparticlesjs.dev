@@ -4,8 +4,8 @@
   import { slide } from "svelte/transition";
   import chevron from "../../public/img/chevron.svg";
 
-  export let name;
-  export let visible;
+  export let name = undefined;
+  export let visible = false;
   $: isVisible = $groups[name] || visible;
   
   function toggle() {
