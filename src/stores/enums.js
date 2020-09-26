@@ -1,9 +1,9 @@
-import { readable } from 'svelte/store';
+import { readable } from "svelte/store";
 
 export const enums = readable({
-  "styles": ["fill", "stroke", "both"],
-  "shapes": ["random", "circle", "square", "triangle", "diamond", "star", "line", "image"],
-  "composites": [
+  styles: ["fill", "stroke", "both"],
+  shapes: ["random", "circle", "square", "triangle", "diamond", "star", "line", "image"],
+  composites: [
     "source-over",
     "source-in",
     "source-out",
@@ -28,6 +28,6 @@ export const enums = readable({
     "hue",
     "saturation",
     "color",
-    "luminosity"
-  ]
+    "luminosity",
+  ],
 });

@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
 export const options = writable({
   composition: "source-over",
@@ -23,5 +23,5 @@ export const options = writable({
   twinkle: false,
   color: ["random"],
   shape: "circle",
-  imageUrl: ""
+  imageUrl: "",
 });

@@ -1,5 +1,4 @@
 <script>
-
   import { options } from "../stores/options.js";
 
   export let option;
@@ -7,38 +6,24 @@
   export let max = 100;
   export let step = 1;
 
-  $: value = $options[ option ];
-
+  $: value = $options[option];
 </script>
 
-  <div class="number">
-    
-    <div class="range-holder">
-      <div class="range-bg"></div>
-      <div class="range-fill"
-        style="width: { ((value - min) * 80) / (max - min) }%;">
-      </div>
-      <input class="range" 
-        type="range" 
-        bind:value={$options[ option ]}
-        min="{min}"
-        max="{max}"
-        step="{step}">
-    </div>
+<div class="number">
 
-    <div class="text-holder">
-      <input class="text" 
-        type="number" 
-        bind:value={$options[ option ]} 
-        min="{min}" 
-        max="{max}"
-        step="{step}" />
-    </div>
-
+  <div class="range-holder">
+    <div class="range-bg" />
+    <div class="range-fill" style="width: {((value - min) * 80) / (max - min)}%;" />
+    <input class="range" type="range" bind:value={$options[option]} {min} {max} {step} />
   </div>
 
-<style>
+  <div class="text-holder">
+    <input class="text" type="number" bind:value={$options[option]} {min} {max} {step} />
+  </div>
 
+</div>
+
+<style>
   .number {
     display: flex;
     align-items: center;
@@ -77,11 +62,4 @@
   .text {
     text-align: right;
   }
-
-  .range {
-    
-  }
-
-
-
 </style>

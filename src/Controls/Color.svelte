@@ -1,35 +1,28 @@
 <script>
-
   import { options } from "../stores/options.js";
 
   export let option;
   export let index;
-
 </script>
 
 <div class="color">
 
   <div class="text-holder">
-    <input class="text-input" 
-      type="text" 
-      bind:value={$options[ option ][index]} />
+    <input class="text-input" type="text" bind:value={$options[option][index]} />
   </div>
 
   <label class="color-holder">
-    <input class="color-input" 
-      type="color" 
-      bind:value={$options[ option ][index]} />
-    {#if $options[ option ][index] === "random"}
-      <span class="color-output random"></span>
+    <input class="color-input" type="color" bind:value={$options[option][index]} />
+    {#if $options[option][index] === 'random'}
+      <span class="color-output random" />
     {:else}
-      <span class="color-output" style="background-color: {$options[ option ][index]};"></span>
+      <span class="color-output" style="background-color: {$options[option][index]};" />
     {/if}
   </label>
 
 </div>
 
 <style>
-
   .color {
     display: flex;
     align-items: center;
@@ -70,7 +63,15 @@
 
   .random {
     background-color: transparent;
-    background-image: linear-gradient(-190deg, blue, cyan 15%, violet, fuchsia, orange, lime 85%, green);
+    background-image: linear-gradient(
+      -190deg,
+      blue,
+      cyan 15%,
+      violet,
+      fuchsia,
+      orange,
+      lime 85%,
+      green
+    );
   }
-
 </style>

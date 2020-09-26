@@ -1,23 +1,18 @@
 <script>
-
   import { options } from "../stores/options.js";
 
   export let option;
-
 </script>
 
-  <div class="string">
+<div class="string">
 
-    <div class="text-holder">
-      <input class="text" 
-        type="text" 
-        bind:value={$options[ option ]} />
-    </div>
-
+  <div class="text-holder">
+    <input class="text" type="text" bind:value={$options[option]} />
   </div>
 
-<style>
+</div>
 
+<style>
   .string {
     display: flex;
     align-items: center;
@@ -32,5 +27,4 @@
     width: 100%;
     text-align: right;
   }
-
 </style>

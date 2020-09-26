@@ -11,47 +11,47 @@
 
   let jsonVisible = false;
 
-  const isMobile = (/Mobi|Android/i.test(navigator.userAgent));
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   let sparticles;
   let node;
   let debounce;
   let selectedPreset = "Vanilla";
-  let ui = $backgrounds[ selectedPreset ];
+  let ui = $backgrounds[selectedPreset];
   $: jsonOut = "";
 
   function track() {
     gtag("event", "github");
-  };
+  }
 
   $: {
-    addSparticles( node, $options );
-  };
+    addSparticles(node, $options);
+  }
 
-  function setNode( el ) {
+  function setNode(el) {
     node = el;
-  };
+  }
 
-  function addSparticles( el, opts ) {
-    if ( debounce ) {
-      clearTimeout( debounce );
+  function addSparticles(el, opts) {
+    if (debounce) {
+      clearTimeout(debounce);
     }
-    debounce = setTimeout( function() {
+    debounce = setTimeout(function() {
       updateJson();
-      if ( el ) {
-        if( sparticles && sparticles instanceof Sparticles ) {
+      if (el) {
+        if (sparticles && sparticles instanceof Sparticles) {
           try {
             sparticles.destroy();
-          } catch(e) {
-            el.removeChild( sparticles.canvas );
+          } catch (e) {
+            el.removeChild(sparticles.canvas);
           }
         }
-        if ( isMobile ) {
-          sparticles = new Sparticles( el, { count: 150 });
+        if (isMobile) {
+          sparticles = new Sparticles(el, { count: 150 });
         } else {
-          sparticles = new Sparticles( el, JSON.parse(JSON.stringify(opts)));
+          sparticles = new Sparticles(el, JSON.parse(JSON.stringify(opts)));
         }
       }
-    }, 250 );
+    }, 250);
   }
 
   function addStats() {
@@ -69,21 +69,20 @@
   function updateJson() {
     jsonOut = JSON.stringify($options)
       .trim()
-      .replace(/,/g,",\n\t")
-      .replace( "{", "{\n\t" )
-      .replace( "}", "\n}" );
-  };
+      .replace(/,/g, ",\n\t")
+      .replace("{", "{\n\t")
+      .replace("}", "\n}");
+  }
 
   function exportJson() {
     updateJson();
     jsonVisible = true;
-  };
-
-  function setPreset( preset ) {
-    selectedPreset = preset.detail;
-    ui = $backgrounds[ selectedPreset ];
   }
 
+  function setPreset(preset) {
+    selectedPreset = preset.detail;
+    ui = $backgrounds[selectedPreset];
+  }
 </script>
 
 <main use:setNode use:addStats>
@@ -91,7 +90,10 @@
     <h1>Sparticles</h1>
     <p>
       <a href="https://github.com/simeydotme/sparticles" target="_blank" on:click={track}>
-        Documentation on Github<span class="octo">{@html octocat}</span>
+        Documentation on Github
+        <span class="octo">
+          {@html octocat}
+        </span>
       </a>
     </p>
   </section>
@@ -99,24 +101,31 @@
   {#if !isMobile}
     <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
     {#if ui.image}
-      <div class="background" style="background-image: url({ui.image});">
-      </div>
+      <div class="background" style="background-image: url({ui.image});" />
     {/if}
     {#if ui.author}
-      <span class="credit" >
-        <a href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">
-          Photo by {ui.author}</a> on Unsplash
+      <span class="credit">
+        <a
+          href="{ui.url}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          target="_blank">
+          Photo by {ui.author}
+        </a>
+        on Unsplash
       </span>
     {/if}
     <div class="exportsettings" class:jsonVisible>
-      <div class="exportoverlay" on:click={() => { jsonVisible = false }}></div>
+      <div
+        class="exportoverlay"
+        on:click={() => {
+          jsonVisible = false;
+        }} />
       <div class="exportcontent">
         <h3>copy this json object for your sparticles options</h3>
         <textarea spellcheck="false" readonly>{jsonOut}</textarea>
       </div>
     </div>
   {/if}
-  
+
 </main>
 
 <style>
@@ -145,7 +154,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 500;
     justify-content: center;
     align-items: center;
@@ -222,19 +231,19 @@
   }
 
   :global(.save-row) {
-    padding: 10px 5px!important;
-    background: transparent!important;
+    padding: 10px 5px !important;
+    background: transparent !important;
   }
 
   :global(.dg .button) {
-    color: black!important;
-    font-size: 14px!important;
-    padding: 6px 6px 8px!important;
-    text-shadow: none!important;
+    color: black !important;
+    font-size: 14px !important;
+    padding: 6px 6px 8px !important;
+    text-shadow: none !important;
   }
 
-  :global(.button.gears,.button.save,.button.save-as,.button.revert) {
-    display: none!important;
+  :global(.button.gears, .button.save, .button.save-as, .button.revert) {
+    display: none !important;
   }
 
   .background {
