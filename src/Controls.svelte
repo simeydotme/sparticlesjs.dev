@@ -10,6 +10,8 @@
   import Group from "./Controls/Group.svelte";
   import Row from "./Controls/Row.svelte";
 
+  import cross from "../public/img/x.svg";
+
   const dispatch = createEventDispatcher();
   let selectedPreset = "default";
 
@@ -94,7 +96,9 @@
             <button class="remove-color" 
               title="Remove this color"
               on:click={() => { removeColor(i) }}>
-              x
+              <span class="cross">
+                {@html cross}
+              </span>
             </button>
           </Row>
         {/each}
@@ -134,6 +138,24 @@
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
+  }
+
+  .remove-color {
+    padding: 3px 5px 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .remove-color:hover .cross {
+    fill: white;
+  }
+
+  .cross {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    fill: #ddd;
   }
 
 </style>
