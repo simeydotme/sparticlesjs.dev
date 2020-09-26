@@ -84,7 +84,7 @@
           <Row name="twinkle" type="boolean" />
           <Row name="minAlpha" type="number" props={{ min: -2, max: 2, step: 0.1 }} />
           <Row name="maxAlpha" type="number" props={{ min: -2, max: 2, step: 0.1 }} />
-          <Row name="alphaSpeed" type="number" props={{ min: 0, max: 100 }} />
+          <Row name="alphaSpeed" type="number" props={{ min: 0, max: 100, step: 0.1 }} />
           <Row name="alphaVariance" type="number" props={{ min: 0, max: 100 }} />
         </Group>
       </Group>
