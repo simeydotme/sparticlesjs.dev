@@ -1,4 +1,4 @@
-import { readable } from "svelte/store";
+import { readable, writable } from "svelte/store";
 
 export const backgrounds = readable({
   Vanilla: {
@@ -36,3 +36,5 @@ export const backgrounds = readable({
     image: "./img/bg/galaxy.jpg",
   },
 });
+
+export const color = writable("transparent");

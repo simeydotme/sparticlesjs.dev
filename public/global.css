@@ -88,6 +88,11 @@ input[type=number] {
   -moz-appearance:textfield;
 }
 
+input[type="color"],
+.color-holder {
+  cursor: pointer;
+}
+
 button {
   color: rgb(255, 255, 255);
 	background-color: #555;

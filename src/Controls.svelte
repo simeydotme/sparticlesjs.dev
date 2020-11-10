@@ -4,6 +4,7 @@
   import { options } from "./stores/options.js";
   import { presets } from "./stores/presets.js";
   import { enums } from "./stores/enums.js";
+  import { color } from "./stores/backgrounds.js";
 
   import Group from "./Controls/Group.svelte";
   import Row from "./Controls/Row.svelte";
@@ -36,12 +37,13 @@
       }, 2000);
     } else {
       updateOptions("Vanilla");
+      $color = "transparent";
       resetPrompt = false;
     }
   }
 
   function addColor() {
-    $options.color.push("#fff");
+    $options.color.push("#ffffff");
     $options.color = $options.color;
   }
 
@@ -87,7 +89,15 @@
 
 <section class="controls">
 
-  <section class="presets">
+  <section class="presets" class:vanilla="{ selectedPreset === 'Vanilla'}">
+
+    {#if selectedPreset === "Vanilla"}
+      background
+      <label class="color-holder" title="change background color for preview">
+        <input class="color-input" type="color" bind:value={$color} />
+        <span class="color-output" style="background-color: {$color};" />
+      </label>
+    {/if}
 
     <select
       class="presetList"
@@ -197,12 +207,56 @@
     margin-bottom: 5px;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    opacity: 0.3;
+    transition: opacity 3s ease;
+  }
+
+  .presets.vanilla {
+    justify-content: space-between;
+  }
+
+  .controls:hover .presets,
+  .controls:hover .operations {
+    opacity: 1;
+    transition: opacity .15s ease;
   }
 
   .operations {
     margin-top: 15px;
     margin-bottom: 0;
     justify-content: space-between;
+  }
+
+  .color-holder {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .color-input {
+    padding: 0;
+    width: 3em;
+    height: 2.3em;
+    opacity: 0;
+    display: inline-block;
+  }
+
+  .color-output {
+    position: absolute;
+    top: 2px;
+    left: -1px;
+    right: -1px;
+    bottom: 2px;
+    border-radius: 3px;
+    background: transparent;
+    margin-right: 4px;
+    border: 1px solid rgba( 255,255,255, 0.2 );
+  }
+
+  .color-output:hover {
+    border-color: rgba( 255,255,255, 0.7 );
   }
 
   .remove-color {

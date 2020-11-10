@@ -6,7 +6,7 @@
   import octocat from "../public/img/github.svg";
   import { options } from "./stores/options.js";
   import { presets } from "./stores/presets.js";
-  import { backgrounds } from "./stores/backgrounds.js";
+  import { backgrounds, color } from "./stores/backgrounds.js";
   import Controls from "./Controls.svelte";
 
   let jsonVisible = false;
@@ -102,6 +102,8 @@
     <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
     {#if ui.image}
       <div class="background" style="background-image: url({ui.image});" />
+    {:else}
+      <div class="background" style="background-color: {$color};" />
     {/if}
     {#if ui.author}
       <span class="credit">
