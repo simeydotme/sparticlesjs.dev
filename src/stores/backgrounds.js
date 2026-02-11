@@ -35,6 +35,12 @@ export const backgrounds = readable({
     url: "https://unsplash.com/photos/fUnfEz3VLv4",
     image: "./img/bg/galaxy.jpg",
   },
+
+  Firecracker: {
+    author: "Ethan Hoover",
+    url: "https://unsplash.com/photos/KkI9YpmO-mc",
+    image: "./img/bg/burst.jpg",
+  },
 });
 
 export const color = writable("transparent");

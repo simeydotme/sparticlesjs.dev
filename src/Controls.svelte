@@ -104,6 +104,9 @@
       bind:value={selectedPreset}
       on:change={() => {
         updateOptions();
+      }}
+      on:blur={() => {
+        updateOptions();
       }}>
       {#each Object.keys($presets) as preset}
         <option value={preset}>{preset}</option>
@@ -127,6 +130,11 @@
     </Group>
 
     <Group name="Animation">
+      <Group name="Center Spawn">
+        <Row name="spawnFromCenter" type="boolean" />
+        <Row name="spawnArea" type="number" props={{ min: 1, max: 90, step: 1 }} />
+        <Row name="staggerSpawn" type="number" props={{ min: 0, max: 20, step: 0.5 }} />
+      </Group>
       <Group name="Motion">
         <Row name="bounce" type="boolean" />
         <Row name="direction" type="number" props={{ min: 0, max: 360, step: 10 }} />
@@ -144,7 +152,7 @@
         <Row name="twinkle" type="boolean" />
         <Row name="minAlpha" type="number" props={{ min: -2, max: 2, step: 0.1 }} />
         <Row name="maxAlpha" type="number" props={{ min: -2, max: 2, step: 0.1 }} />
-        <Row name="alphaSpeed" type="number" props={{ min: 0, max: 100, step: 0.1 }} />
+        <Row name="alphaSpeed" type="number" props={{ min: 0, max: 50, step: 0.1 }} />
         <Row name="alphaVariance" type="number" props={{ min: 0, max: 100 }} />
       </Group>
     </Group>
@@ -176,7 +184,7 @@
   </Group>
 
   <section class="operations">
-    <button on:click={saveJson}>Save Settings</button>
+    <button on:click={saveJson}>Export Settings</button>
     <button on:click={reset}>
       {#if !resetPrompt}Reset{:else}Confirm?{/if}
     </button>
@@ -191,6 +199,7 @@
     top: 10px;
     padding: 10px;
     background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
     width: 280px;
     border-radius: 5px;
     font-size: 11px;
