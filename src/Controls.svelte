@@ -94,6 +94,10 @@
       }
       if (savedOptions) {
         const o = JSON.parse(savedOptions);
+        if (Object.prototype.hasOwnProperty.call(o, "spawnFromCenter") && !Object.prototype.hasOwnProperty.call(o, "spawnFromPoint")) {
+          o.spawnFromPoint = Boolean(o.spawnFromCenter);
+          delete o.spawnFromCenter;
+        }
         if (!Array.isArray(o.spawnLocations) || o.spawnLocations.length === 0) {
           o.spawnLocations = [[50, 50]];
         } else {
@@ -154,7 +158,7 @@
 
     <Group name="Animation">
       <Group name="Center Spawn">
-        <Row name="spawnFromCenter" type="boolean" />
+        <Row name="spawnFromPoint" type="boolean" />
         <Row name="spawnArea" type="number" props={{ min: 1, max: 90, step: 1 }} />
         <Row name="staggerSpawn" type="number" props={{ min: 0, max: 20, step: 0.5 }} />
       </Group>

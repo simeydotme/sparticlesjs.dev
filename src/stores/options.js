@@ -21,7 +21,7 @@ export const options = writable({
   drift: 1,
   glow: 0,
   twinkle: false,
-  spawnFromCenter: false,
+  spawnFromPoint: false,
   spawnArea: 0,
   staggerSpawn: 0,
   /** @type {number[][]} [x, y] as % of canvas width/height (0–100); Sparticles default [[50, 50]] */

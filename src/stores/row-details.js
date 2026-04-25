@@ -9,7 +9,7 @@ const details = {
   composition:
     "Canvas blend mode for how particles draw over each other. Anything other than 'source-over' can cause performance degradation.",
   direction:
-    "Base travel direction in degrees (0 = up, 90 = right, 180 = down, 270 = left). Ignored when spawnFromCenter is enabled.",
+    "Base travel direction in degrees (0 = up, 90 = right, 180 = down, 270 = left). Ignored when spawnFromPoint is enabled.",
   speed:
     "Base movement speed for all particles. 0 keeps them still (with only variance moving them); higher values move faster across the screen.",
   parallax:
@@ -50,12 +50,12 @@ const details = {
     "Particle shape or array of shapes (e.g. 'circle', 'square', 'star', 'image'). Arrays randomly pick a shape per particle; 'image' uses imageUrl.",
   imageUrl:
     "Image URL or array of URLs for particles when shape includes 'image'. Images should be square (1:1) for best results.",
-  spawnFromCenter:
+  spawnFromPoint:
     "If true, particles spawn inside a circle at the canvas center and move radially outward. Direction is ignored; great for burst or radiating effects.",
   spawnArea:
-    "Size of the center spawn circle as a percentage of canvas width when spawnFromCenter is true. e.g. 20 = tight core, 80 = wide diffuse area.",
+    "Size of the center spawn circle as a percentage of canvas width when spawnFromPoint is true. e.g. 20 = tight core, 80 = wide diffuse area.",
   spawnLocations:
-    "One or more [x, y] origins as % of canvas width/height (0–100). Particles round-robin between locations when spawnFromCenter is on, e.g. [[25,50],[75,50]] for two horizontal spawners.",
+    "One or more [x, y] origins as % of canvas width/height (0–100). Particles round-robin between locations when spawnFromPoint is on, e.g. [[25,50],[75,50]] for two horizontal spawners.",
   staggerSpawn:
     "Staggers the initial particle spawns over this many seconds instead of spawning all particles at once, reduces the 'burst' effect.",
 };

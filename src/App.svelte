@@ -120,12 +120,12 @@
       return;
     }
     if (
-      Object.prototype.hasOwnProperty.call(/** @type {object} */ (parsed), "spawnFromPoint") &&
-      !Object.prototype.hasOwnProperty.call(/** @type {object} */ (parsed), "spawnFromCenter")
+      Object.prototype.hasOwnProperty.call(/** @type {object} */ (parsed), "spawnFromCenter") &&
+      !Object.prototype.hasOwnProperty.call(/** @type {object} */ (parsed), "spawnFromPoint")
     ) {
-      var point = /** @type {Record<string, unknown>} */ (parsed).spawnFromPoint;
-      /** @type {Record<string, unknown>} */ (parsed).spawnFromCenter = Boolean(point);
-      delete /** @type {Record<string, unknown>} */ (parsed).spawnFromPoint;
+      var legacyPoint = /** @type {Record<string, unknown>} */ (parsed).spawnFromCenter;
+      /** @type {Record<string, unknown>} */ (parsed).spawnFromPoint = Boolean(legacyPoint);
+      delete /** @type {Record<string, unknown>} */ (parsed).spawnFromCenter;
     }
     var merged = mergeSparticlesOptionsImport(
       $options,
