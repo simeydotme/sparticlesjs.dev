@@ -28,13 +28,13 @@ export const SPARTICLES_V220_DEFAULTS = {
   yVariance: 2,
   spawnArea: 20,
   spawnLocations: [[50, 50]],
-  spawnFromCenter: false,
+  spawnFromPoint: false,
   staggerSpawn: 0,
 };
 
 export const IMPORTABLE_OPTION_KEYS = new Set(Object.keys(SPARTICLES_V220_DEFAULTS));
 
-const BOOL_KEYS = new Set(["rotate", "twinkle", "bounce", "spawnFromCenter"]);
+const BOOL_KEYS = new Set(["rotate", "twinkle", "bounce", "spawnFromPoint"]);
 
 export function deepEqual(a, b) {
   if (a === b) {
