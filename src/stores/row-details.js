@@ -54,6 +54,8 @@ const details = {
     "If true, particles spawn inside a circle at the canvas center and move radially outward. Direction is ignored; great for burst or radiating effects.",
   spawnArea:
     "Size of the center spawn circle as a percentage of canvas width when spawnFromCenter is true. e.g. 20 = tight core, 80 = wide diffuse area.",
+  spawnLocations:
+    "One or more [x, y] origins as % of canvas width/height (0–100). Particles round-robin between locations when spawnFromCenter is on, e.g. [[25,50],[75,50]] for two horizontal spawners.",
   staggerSpawn:
     "Staggers the initial particle spawns over this many seconds instead of spawning all particles at once, reduces the 'burst' effect.",
 };

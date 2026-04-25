@@ -24,6 +24,8 @@ export const options = writable({
   spawnFromCenter: false,
   spawnArea: 0,
   staggerSpawn: 0,
+  /** @type {number[][]} [x, y] as % of canvas width/height (0–100); Sparticles default [[50, 50]] */
+  spawnLocations: [[50, 50]],
   color: ["random"],
   shape: "circle",
   imageUrl: "",

@@ -5,11 +5,16 @@
 
   import octocat from "../public/img/github.svg";
   import { options } from "./stores/options.js";
-  import { presets } from "./stores/presets.js";
   import { backgrounds, color } from "./stores/backgrounds.js";
   import Controls from "./Controls.svelte";
+  import { mergeSparticlesOptionsImport, optionsDeltaFromSparticlesDefaults } from "./lib/sparticlesOptionDefaults.js";
 
   let jsonVisible = false;
+  /** @type {"export" | "import"} */
+  let jsonPanelMode = "export";
+  let jsonText = "";
+  /** @type {{ kind: "ok" | "warn" | "err"; text: string } | null} */
+  let importFeedback = null;
 
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   let sparticles;
@@ -17,7 +22,6 @@
   let debounce;
   let selectedPreset = "Vanilla";
   let ui = $backgrounds[selectedPreset];
-  $: jsonOut = "";
 
   function track() {
     gtag("event", "github");
@@ -55,7 +59,7 @@
   }
 
   function addStats() {
-    let fps = new Stats();
+    var fps = new Stats();
     fps.dom.classList.add("stats");
     document.body.appendChild(fps.dom);
     function statsDisplay() {
@@ -66,17 +70,82 @@
     requestAnimationFrame(statsDisplay);
   }
 
-  function updateJson() {
-    jsonOut = JSON.stringify($options)
+  function formatJson(obj) {
+    var o = obj && typeof obj === "object" ? obj : {};
+    if (Object.keys(o).length === 0) {
+      return "{}\n";
+    }
+    return (
+      JSON.stringify(obj, null, 2)
+      .replace(/\[.*\n\s*(.*),\n\s*(.*)\n.*\]/g, "[$1,$2]")
       .trim()
-      .replace(/,/g, ",\n\t")
-      .replace("{", "{\n\t")
-      .replace("}", "\n}");
+    );
   }
 
-  function exportJson() {
-    updateJson();
+  function updateJson() {
+    if (jsonVisible && jsonPanelMode === "import") {
+      return;
+    }
+    if (jsonVisible && jsonPanelMode === "export") {
+      jsonText = formatJson(optionsDeltaFromSparticlesDefaults($options));
+    }
+  }
+
+  function openExportJson() {
+    importFeedback = null;
+    jsonPanelMode = "export";
+    jsonText = formatJson(optionsDeltaFromSparticlesDefaults($options));
     jsonVisible = true;
+  }
+
+  function openImportJson() {
+    importFeedback = null;
+    jsonPanelMode = "import";
+    jsonText = "";
+    jsonVisible = true;
+  }
+
+  function importSaveAndApply() {
+    importFeedback = null;
+    var parsed;
+    try {
+      parsed = JSON.parse(jsonText);
+    } catch (e) {
+      var em = e && /** @type {Error} */ (e).message ? /** @type {Error} */ (e).message : "parse error";
+      importFeedback = { kind: "err", text: "Invalid JSON: " + em + "." };
+      return;
+    }
+    if (parsed == null || typeof parsed !== "object" || Array.isArray(parsed)) {
+      importFeedback = { kind: "err", text: "JSON must be a single object, not an array or primitive." };
+      return;
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(/** @type {object} */ (parsed), "spawnFromPoint") &&
+      !Object.prototype.hasOwnProperty.call(/** @type {object} */ (parsed), "spawnFromCenter")
+    ) {
+      var point = /** @type {Record<string, unknown>} */ (parsed).spawnFromPoint;
+      /** @type {Record<string, unknown>} */ (parsed).spawnFromCenter = Boolean(point);
+      delete /** @type {Record<string, unknown>} */ (parsed).spawnFromPoint;
+    }
+    var merged = mergeSparticlesOptionsImport(
+      $options,
+      /** @type {Record<string, unknown>} */ (parsed)
+    );
+    options.set(merged.options);
+    if (merged.warnings.length) {
+      importFeedback = {
+        kind: "warn",
+        text: "Settings applied. " + merged.warnings.join(" "),
+      };
+    } else {
+      importFeedback = { kind: "ok", text: "Settings imported; canvas re-rendered." };
+      jsonVisible = false;
+    }
+  }
+
+  function closeJsonPanel() {
+    jsonVisible = false;
+    importFeedback = null;
   }
 
   function setPreset(preset) {
@@ -99,7 +168,10 @@
   </section>
 
   {#if !isMobile}
-    <Controls on:setPreset={setPreset} on:saveJson={exportJson} />
+    <Controls
+      on:setPreset={setPreset}
+      on:saveJson={openExportJson}
+      on:importJson={openImportJson} />
     {#if ui.image}
       <div class="background" style="background-image: url({ui.image});" />
     {:else}
@@ -118,16 +190,35 @@
     <div class="exportsettings" class:jsonVisible>
       <div
         class="exportoverlay"
-        on:click={() => {
-          jsonVisible = false;
-        }} />
-      <div class="exportcontent">
-        <h3>copy this json object for your sparticles options</h3>
-        <textarea spellcheck="false" readonly>{jsonOut}</textarea>
+        on:click={closeJsonPanel} />
+      <div class="exportcontent" on:click|stopPropagation>
+        <h3>
+          {#if jsonPanelMode === "import"}
+            Paste a Sparticles options object (only changed keys, or a full set). Then save to apply to the
+            controls and re-render the canvas.
+          {:else}
+            JSON contains only options that differ from the Sparticles v2.2.0 library defaults. Copy to use
+            in your app.
+          {/if}
+        </h3>
+        <textarea spellcheck="false" class:import-mode={jsonPanelMode === "import"} bind:value={jsonText} readonly={jsonPanelMode === "export"}></textarea>
+        {#if importFeedback}
+          <p
+            class="import-feedback"
+            class:ok={importFeedback.kind === "ok"}
+            class:warn={importFeedback.kind === "warn"}
+            class:err={importFeedback.kind === "err"}>
+            {importFeedback.text}
+          </p>
+        {/if}
+        {#if jsonPanelMode === "import"}
+          <div class="import-actions">
+            <button type="button" class="import-save" on:click={importSaveAndApply}>Save and import settings</button>
+          </div>
+        {/if}
       </div>
     </div>
   {/if}
-
 </main>
 
 <style>
@@ -145,7 +236,6 @@
     right: 15px;
     padding: 10px;
     border-radius: 10px;
-    /* box-shadow: 0 0 20px 10px rgba(27, 31, 36, 1); */
     z-index: 1;
   }
 
@@ -176,22 +266,69 @@
     padding: 15px;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
+    max-width: 90vw;
   }
 
   .exportcontent h3 {
     font-size: 14px;
     font-weight: 400;
     text-align: center;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
   }
 
   .exportcontent textarea {
     width: 75vw;
+    max-width: 900px;
     height: 60vh;
     border: none;
     background: transparent;
     color: aquamarine;
     font-family: "Fira Code", Consolas, Monaco, monospace;
     font-size: 14px;
+  }
+
+  .exportcontent textarea.import-mode {
+    color: #e0e0e0;
+  }
+
+  .import-feedback {
+    margin: 8px 0 0 0;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .import-feedback.ok {
+    color: #7dffb0;
+  }
+
+  .import-feedback.warn {
+    color: #ffdb7d;
+  }
+
+  .import-feedback.err {
+    color: #ff8b8b;
+  }
+
+  .import-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .import-save {
+    font-family: "Fira Code", Consolas, Menlo, Monaco, monospace;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    cursor: pointer;
+  }
+
+  .import-save:hover {
+    background: #444;
   }
 
   .jsonVisible {
